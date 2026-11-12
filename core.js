@@ -1,3 +1,4 @@
+import {emptyHealth,validateHealth} from './health-core.js';
 export const MEALS = ['breakfast','lunch','dinner','snack'];
 export const DEFAULT_GOALS = {kcal:2000,carbs:250,protein:100,fat:67,water:2000};
 export const normalizeQuery = s => String(s).normalize('NFKC').toLowerCase().replace(/\s+/g,'');
@@ -40,7 +41,7 @@ export function validateFood(f) {
   if(f.serving!=null&&(!Number.isFinite(f.serving)||f.serving<=0||f.serving>100000))throw Error('음식 기준량을 확인해 주세요.');
   return {id:f.id,name:f.name.trim(),kcal:f.kcal,carbs:f.carbs,protein:f.protein,fat:f.fat,unit:f.unit,serving:f.serving??null,category:String(f.category||'직접 등록').slice(0,100),brand:String(f.brand||'').slice(0,200),origin:String(f.origin||'').slice(0,200),source:['mfds','rda','off','custom'].includes(f.source)?f.source:'custom'};
 }
-export function emptyState(){return{version:1,entries:[],customFoods:[],favorites:[],water:{},goals:{...DEFAULT_GOALS}};}
+export function emptyState(){return{version:1,entries:[],customFoods:[],favorites:[],water:{},goals:{...DEFAULT_GOALS},health:emptyHealth()};}
 export function validateBackup(d) {
   if(!d||d.version!==1||!Array.isArray(d.entries)||!Array.isArray(d.customFoods)||!Array.isArray(d.favorites)||!d.water||typeof d.water!=='object'||Array.isArray(d.water)||!d.goals)throw Error('한끼 백업 파일 형식이 아니에요.');
   if(d.entries.length>50000||d.customFoods.length>10000||d.favorites.length>10000)throw Error('백업 파일이 너무 커요.');
@@ -57,5 +58,5 @@ export function validateBackup(d) {
   const water={};for(const [key,n]of Object.entries(d.water)){if(!validDate(key)||!Number.isFinite(n)||n<0||n>20000)throw Error('물 기록을 확인해 주세요.');water[key]=n;}
   const customFoods=d.customFoods.map(validateFood);
   const favorites=d.favorites.map(validateFood);
-  return {version:1,entries,customFoods,favorites,water,goals};
+  return {version:1,entries,customFoods,favorites,water,goals,health:validateHealth(d.health)};
 }

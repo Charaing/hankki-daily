@@ -1,1 +1,32 @@
-{"id":"./","name":"한끼 — 나의 식단 기록","short_name":"한끼","lang":"ko","start_url":"./","scope":"./","display":"standalone","background_color":"#f5f6f8","theme_color":"#3182f6","icons":[{"src":"./assets/favicon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}
+{
+  "id": "./",
+  "name": "한끼 — 나의 식단 기록",
+  "short_name": "한끼",
+  "lang": "ko",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f6f8",
+  "theme_color": "#3182f6",
+  "icons": [
+    {
+      "src": "./assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "./assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "description": "식단과 체중, BMI와 대사량까지 나의 속도로 기록하는 한끼"
+}
