@@ -1,0 +1,8 @@
+{
+  "name": "hankki-daily",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "test": "node --test tests/*.test.js", "start": "node scripts/serve.cjs" },
+  "description": "한끼 - 식약처 공개 식품 데이터로 기록하는 매일의 식단"
+}
