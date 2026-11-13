@@ -1,5 +1,5 @@
-import {emptyHealth,validateHealth} from './health-core.js';
-import {defaultSchool,validateSchool,schoolNutrition} from './school-core.js';
+import {emptyHealth,validateHealth} from './health-core.js?v=1.2.2';
+import {defaultSchool,validateSchool,schoolNutrition} from './school-core.js?v=1.2.2';
 export const MEALS = ['breakfast','lunch','dinner','snack'];
 export const DEFAULT_GOALS = {kcal:2000,carbs:250,protein:100,fat:67,water:2000};
 export const normalizeQuery = s => String(s).normalize('NFKC').toLowerCase().replace(/\s+/g,'');
@@ -33,7 +33,7 @@ export function summarize(entries) {
   for(const k of ['kcal','carbs','protein','fat'])sum[k]=rounded(sum[k]);
   return sum;
 }
-export function entryNutrition(e){return e.kind==='school-lunch'&&e.auto?schoolNutrition(e.kcal):calculate(e.food,e.amount,e.mode,e.servingSize);}
+export function entryNutrition(e){return e.kind==='school-lunch'&&e.auto?schoolNutrition(e.kcal,e.food):calculate(e.food,e.amount,e.mode,e.servingSize);}
 export function foodFromRow(r,categories=[]) {
   return {id:r[0],name:r[1],kcal:r[2],carbs:r[3],protein:r[4],fat:r[5],unit:r[6],serving:r[7],category:categories[r[8]]||'기타',brand:r[9],origin:r[10],source:'mfds'};
 }

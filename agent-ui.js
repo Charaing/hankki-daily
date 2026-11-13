@@ -1,6 +1,6 @@
-import {createAgentKeyStore,AGENT_KEY_STORAGE_KEYS} from './agent-key.js';
-import {renderAgentAnswer,plainAgentAnswer} from './agent-format.js';
-import {MODEL,runAgent,buildAgentSnapshot} from './agent-core.js';import {dateKey,normalizeQuery} from './core.js';import {icon} from './icons.js';
+import {createAgentKeyStore,AGENT_KEY_STORAGE_KEYS} from './agent-key.js?v=1.2.2';
+import {renderAgentAnswer,plainAgentAnswer} from './agent-format.js?v=1.2.2';
+import {MODEL,runAgent,buildAgentSnapshot} from './agent-core.js?v=1.2.2';import {dateKey,normalizeQuery} from './core.js?v=1.2.2';import {icon} from './icons.js?v=1.2.2';
 const $=s=>document.querySelector(s);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const browserStorage=name=>{try{return window[name];}catch{return null;}};
 export function createAgentFeature({getState,getDate,getCandidates,openView,notify}){

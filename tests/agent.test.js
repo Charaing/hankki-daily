@@ -2,7 +2,12 @@ import test from 'node:test';import assert from 'node:assert/strict';
 import {MODEL,buildAgentSnapshot,runAgent,apiErrorMessage,extractAnswer} from '../agent-core.js';import {emptyState} from '../core.js';
 test('agent snapshot includes auto lunch honestly and only selected safe fields',()=>{
  const s=emptyState();s.extraSecret='do-not-send';s.health.profile={height:170,age:30,sex:'female',activity:'light',goalWeight:60,goalMode:'maintain',targetDate:null};s.health.weights=[{date:'2026-11-13',weight:65,note:'private note'}];
- const result=buildAgentSnapshot(s,'2026-11-13','2026-11-13',[]);assert.equal(result.day.totals.kcal,950);assert.equal(result.day.foods[0].automatic,true);assert.equal(result.day.foods[0].protein,null);assert.equal(result.week.length,7);assert(!JSON.stringify(result).includes('do-not-send'));assert(!JSON.stringify(result).includes('private note'));
+ const result=buildAgentSnapshot(s,'2026-11-13','2026-11-13',[]);assert.equal(result.day.totals.kcal,839);assert.equal(result.day.foods[0].automatic,true);assert.equal(result.day.foods[0].estimated,true);assert.equal(result.day.foods[0].protein,36);assert.equal(result.week.length,7);assert(!JSON.stringify(result).includes('do-not-send'));assert(!JSON.stringify(result).includes('private note'));
+});
+test('weekend analysis preserves the weekday school-lunch estimate source in weekly tools',()=>{
+ const result=buildAgentSnapshot(emptyState(),'2026-11-14','2026-11-14',[]);assert.equal(result.day.foods.length,0);
+ const friday=result.week.find(d=>d.date==='2026-11-13');assert.equal(friday.totals.kcal,839);assert.equal(friday.automaticRecords,1);assert.equal(friday.estimatedRecords,1);assert.match(friday.nutritionBasis,/사용자 제공 추정 평균/);
+ assert.equal(result.week.find(d=>d.date==='2026-11-14').estimatedRecords,0);
 });
 test('real tool results are sent back before the final answer, without embedding the key in body',async()=>{
  const requests=[];let count=0;const fetcher=async(url,opt)=>{requests.push({url,...opt});const body=++count===1?{candidates:[{content:{role:'model',parts:[{functionCall:{name:'get_day_report',args:{}},thoughtSignature:'keep-signature'}]}}]}:{candidates:[{content:{role:'model',parts:[{text:'학교 점심은 950kcal로 자동 반영됐어요.'}]}}]};return{ok:true,status:200,json:async()=>body};};
