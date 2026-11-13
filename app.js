@@ -4,7 +4,7 @@ import {createHealthFeature} from './health-ui.js';
 import {animateContent,setMotion} from './app-motion.js';
 import {entriesForDay} from './school-core.js';
 import {createSchoolFeature} from './school-ui.js';
-import {createAgentFeature} from './agent-ui.js';
+import {createAgentFeature} from './agent-ui.js?v=1.2.1';
 import {decorateWorkspace,workspaceSection} from './workspace-ui.js';
 
 const $=s=>document.querySelector(s);
