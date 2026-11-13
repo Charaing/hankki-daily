@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="./assets/motion/motion.css">
   <link rel="stylesheet" href="./health.css">
   <link rel="stylesheet" href="./app-motion.css">
+  <link rel="stylesheet" href="./workspace.css">
 </head>
 <body>
   <a class="skip-link" href="#main">본문으로 바로가기</a>
@@ -32,6 +33,7 @@
       <button data-action="view" data-view="body" class="nav-item"><span data-icon="scale"></span>몸 관리</button>
       <button data-action="view" data-view="report" class="nav-item"><span data-icon="chart"></span>기록 리포트</button>
       <button data-action="view" data-view="library" class="nav-item"><span data-icon="bookmark"></span>음식 보관함</button>
+      <button data-action="view" data-view="agent" class="nav-item"><span data-icon="sparkle"></span>AI 코치<span class="ai-nav-badge">NEW</span></button>
     </nav>
     <div class="sidebar-bottom">
       <div class="local-note"><span data-icon="shield"></span><div>내 기록은 내 기기에<span>로그인 없이, 자동 저장돼요</span></div></div>
@@ -53,7 +55,7 @@
       <footer class="app-footer"><span>한끼 · 매일의 기록이 나를 만들어요</span><button data-action="sources">식품 데이터 출처 및 안내<span data-icon="arrow-up-right"></span></button></footer>
     </main>
   </div>
-  <nav class="bottom-nav" aria-label="모바일 메뉴"><button data-action="view" data-view="today" class="active"><span data-icon="journal"></span><span>오늘 기록</span></button><button data-action="view" data-view="body"><span data-icon="scale"></span><span>몸 관리</span></button><button data-action="view" data-view="report"><span data-icon="chart"></span><span>리포트</span></button><button data-action="view" data-view="library"><span data-icon="bookmark"></span><span>보관함</span></button></nav>
+  <nav class="bottom-nav" aria-label="모바일 메뉴"><button data-action="view" data-view="today" class="active"><span data-icon="journal"></span><span>오늘 기록</span></button><button data-action="view" data-view="body"><span data-icon="scale"></span><span>몸 관리</span></button><button data-action="view" data-view="report"><span data-icon="chart"></span><span>리포트</span></button><button data-action="view" data-view="library"><span data-icon="bookmark"></span><span>보관함</span></button><button data-action="view" data-view="agent"><span data-icon="sparkle"></span><span>AI 코치</span></button></nav>
 
   <dialog id="food-dialog" class="food-dialog" aria-labelledby="food-dialog-title">
     <header class="dialog-header"><div><span class="eyebrow">한 끼를 남기는 가장 쉬운 방법</span><h2 id="food-dialog-title">무엇을 드셨나요?</h2></div><button class="icon-button" data-action="close-food" aria-label="음식 검색 닫기"><span data-icon="x"></span></button></header>
@@ -74,6 +76,8 @@
   <dialog id="custom-dialog" class="small-dialog" aria-labelledby="custom-title"><header class="dialog-header"><div><span class="eyebrow">영양정보를 보고 채워 주세요</span><h2 id="custom-title">나만의 음식 등록</h2></div><button class="icon-button" data-action="close-custom" aria-label="직접 등록 닫기"><span data-icon="x"></span></button></header><div class="small-dialog-body" id="custom-body"></div></dialog>
   <dialog id="info-dialog" class="small-dialog" aria-labelledby="info-title"><header class="dialog-header"><h2 id="info-title">식품 데이터 안내</h2><button class="icon-button" data-action="close-info" aria-label="안내 닫기"><span data-icon="x"></span></button></header><div id="info-body" class="small-dialog-body info-body"></div></dialog>
   <dialog id="health-dialog" class="small-dialog health-dialog" aria-labelledby="health-dialog-title"><header class="dialog-header"><div><span class="eyebrow" id="health-dialog-subtitle"></span><h2 id="health-dialog-title">몸 관리</h2></div><button class="icon-button" data-action="health-close" aria-label="몸 관리 창 닫기"><span data-icon="x"></span></button></header><div id="health-dialog-body" class="small-dialog-body"></div></dialog>
+  <dialog id="school-dialog" class="small-dialog" aria-labelledby="school-title"><header class="dialog-header"><h2 id="school-title">학교 점심 자동 기록</h2><button class="icon-button" data-action="school-close" aria-label="학교 점심 설정 닫기"><span data-icon="x"></span></button></header><div id="school-dialog-body" class="small-dialog-body"></div></dialog>
+  <dialog id="agent-key-dialog" class="small-dialog" aria-labelledby="agent-key-title"><header class="dialog-header"><h2 id="agent-key-title">AI 코치 연결</h2><button class="icon-button" data-action="agent-key-close" aria-label="AI 연결 창 닫기"><span data-icon="x"></span></button></header><div id="agent-key-body" class="small-dialog-body"></div></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
   <input type="file" id="import-file" accept="application/json,.json" hidden>
   <noscript><p class="noscript">식단을 기록하려면 브라우저의 JavaScript를 켜 주세요.</p></noscript>

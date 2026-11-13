@@ -1,4 +1,9 @@
 const paths={
+ school:'<path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7M10 8h4"/>',
+ key:'<circle cx="8" cy="8" r="5"/><path d="m12 12 9 9m-4-4 3-3m-6 0 3-3"/>',
+ send:'<path d="m3 3 18 9-18 9 4-9-4-9Zm4 9h14"/>',
+ stop:'<rect x="6" y="6" width="12" height="12" rx="2"/>',
+ copy:'<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V3H3v13h5"/>',
  bookmark:'<path d="M6 3h12v18l-6-4-6 4Z"/>',
  scale:'<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M7 9a6 6 0 0 1 10 0l-5 4Z"/><path d="m12 11 2-3"/>',
  body:'<circle cx="12" cy="4" r="2"/><path d="M5 9h14M12 6v8m-4 7 4-7 4 7"/>',
