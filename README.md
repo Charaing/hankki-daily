@@ -31,7 +31,7 @@
 
 공휴일 자료는 [한국천문연구원 달력자료](https://astro.kasi.re.kr/kor/life/post/calendarData?year=2026)와 [우주항공청 2027년 월력요항](https://m.korea.kr/briefing/pressReleaseView.do?newsId=156768474)을 2026-11-13 확인한 2026·2027년 스냅샷입니다. 노동절·제헌절 공휴일 및 대체공휴일도 반영했습니다. 범위 밖 연도에는 확인 없이 자동 합산하지 않으며, 추가 임시 공휴일과 학교 자체 휴업·방학은 별도 설정이 필요합니다.
 
-AI는 [Google 공식 발표](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/)의 `gemini-4-hydrogen` 모델을 고정 사용합니다. [무료 티어](https://aistudio.google.com/docs/pricing)는 계정별 할당량 제한이 있으며 계정 요금제에 따라 과금 정책이 달라질 수 있습니다. 다른 모델로 자동 전환하지 않습니다. API 키는 연결한 탭의 `sessionStorage`에만 보관하고 공개 코드·Git·URL·백업에 넣지 않습니다. 탭을 닫거나 ‘연결 키 지우기’를 누르면 연결이 사라집니다. 키 삭제는 진행 중인 요청도 중지합니다.
+AI는 [Google 공식 발표](https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-hydrogen/)의 `gemini-4-hydrogen` 모델을 고정 사용합니다. [무료 티어](https://aistudio.google.com/docs/pricing)는 계정별 할당량 제한이 있으며 계정 요금제에 따라 과금 정책이 달라질 수 있습니다. 다른 모델로 자동 전환하지 않습니다. API 키는 이 브라우저의 별도 `localStorage` 항목에 보관하고 공개 코드·Git·URL·식단 백업에 넣지 않습니다. 탭·앱을 닫았다 열어도 자동 연결합니다. 기존 탭 전용 키는 새 버전에서 자동 이전합니다. ‘연결 키 지우기’ 또는 사이트 데이터 삭제 시 연결이 사라집니다. 브라우저 저장이 차단되면 성공으로 표시하지 않고 설정 확인을 안내합니다. 키 삭제는 진행 중인 요청도 중지합니다.
 
 질문을 보내면 선택 날짜 보고서 도구를 먼저 호출하고, 필요에 따라 최근 7일·몸 관리 요약·자주 찾는 음식과 보관함 도구를 호출합니다. 해당 요약과 현재 대화는 Google AI로 전송됩니다. 체중 메모와 전체 백업은 보내지 않습니다. 무료 티어의 입력·응답은 Google 서비스 개선에 사용될 수 있습니다. AI는 기록을 수정하지 않으며, 누락된 식사·영양소·중량을 만들어 채우지 않도록 지시합니다. 오류·사용량 제한·취소·시간 초과는 화면에 표시합니다.
 
