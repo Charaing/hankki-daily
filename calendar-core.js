@@ -1,5 +1,5 @@
-import {shiftDate,validDate,summarize} from './core.js?v=1.3.0';
-import {entriesForDay} from './school-core.js?v=1.3.0';
+import {shiftDate,validDate,summarize} from './core.js?v=1.4.0';
+import {entriesForDay} from './school-core.js?v=1.4.0';
 export function shiftMonth(month,delta){const [y,m]=month.split('-').map(Number),d=new Date(y,m-1+delta,1,12),year=d.getFullYear();return year<1900||year>2200?month:`${year}-${String(d.getMonth()+1).padStart(2,'0')}`;}
 export function monthDays(month){const first=month+'-01';if(!validDate(first))throw Error('달력을 표시할 날짜를 확인해 주세요.');const offset=new Date(first+'T12:00:00Z').getUTCDay(),start=shiftDate(first,-offset);return Array.from({length:42},(_,i)=>{const date=shiftDate(start,i);return{date,inMonth:date.startsWith(month),day:Number(date.slice(-2))};});}
 export function goalForDate(state,date){let goal=state.goals.kcal;for(const d of Object.keys(state.calorieGoalHistory||{}).sort()){if(d>date)break;goal=state.calorieGoalHistory[d];}return goal;}

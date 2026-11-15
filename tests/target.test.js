@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {emptyState,validateBackup} from '../core.js';import {bmrReference,syncBmrTarget,syncRestoredTarget} from '../target-core.js';import {recordGoalChange,goalForDate} from '../calendar-core.js';
+test('BMR reference updates the comparison target from latest valid measurement, without activity multipliers',()=>{
+ const s=emptyState();s.health.profile={height:170,age:30,sex:'male',activity:'moderate',goalMode:'maintain',goalWeight:null,targetDate:null};s.health.weights=[{date:'2026-11-10',weight:70},{date:'2026-11-16',weight:100}];assert.equal(bmrReference(s,'2026-11-15').kcal,1618);const next=recordGoalChange(s,syncBmrTarget(s,'2026-11-15'),'2026-11-15');assert.equal(next.goals.kcal,1618);assert.equal(goalForDate(next,'2026-11-14'),2000);assert.equal(syncBmrTarget({...s,calorieTargetMode:'manual'},'2026-11-15').goals.kcal,2000);
+});
+test('restored BMR targets update immediately using imported history rather than the previous device state',()=>{
+ const s=emptyState();s.health.profile={height:170,age:30,sex:'male',activity:'moderate',goalMode:'maintain',goalWeight:null,targetDate:null};s.health.weights=[{date:'2026-11-10',weight:70}];s.calorieGoalHistory={'1900-01-01':2200,'2026-11-10':2000};const result=syncRestoredTarget(s,'2026-11-15');assert.equal(result.goals.kcal,1618);assert.equal(goalForDate(result,'2026-11-09'),2200);assert.equal(goalForDate(result,'2026-11-14'),2000);assert.equal(goalForDate(result,'2026-11-15'),1618);
+});
+test('missing body information stays pending instead of making up a BMR, and mode round-trips in backups',()=>{
+ const s=emptyState();assert.equal(bmrReference(s,'2026-11-15'),null);assert.equal(syncBmrTarget(s,'2026-11-15').goals.kcal,2000);assert.equal(validateBackup({...s,calorieTargetMode:undefined}).calorieTargetMode,'bmr');assert.equal(validateBackup({...s,calorieTargetMode:'manual'}).calorieTargetMode,'manual');assert.throws(()=>validateBackup({...s,calorieTargetMode:'unknown'}));
+});

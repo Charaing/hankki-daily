@@ -1,5 +1,5 @@
-import {foodKind,groupFoods} from './food-catalog.js?v=1.3.0';
-import {normalizeQuery,foodFromRow} from './core.js?v=1.3.0';
+import {foodKind,groupFoods} from './food-catalog.js?v=1.4.0';
+import {normalizeQuery,foodFromRow} from './core.js?v=1.4.0';
 let rows=[],names=[],manifest=null,loaded=0,current={q:'',filter:'전체',seq:0},loading=false,finished=false,failed=0;
 const initialLetters='ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ';
 const initials=s=>[...s].map(c=>{const n=c.charCodeAt(0)-44032;return n>=0&&n<11172?initialLetters[Math.floor(n/588)]:c;}).join('');

@@ -1,4 +1,5 @@
 const paths={
+ trash:'<path d="M3 6h18M9 6V3h6v3M5 6l1 15h12l1-15M10 10v7m4-7v7"/>',
  school:'<path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7M10 8h4"/>',
  key:'<circle cx="8" cy="8" r="5"/><path d="m12 12 9 9m-4-4 3-3m-6 0 3-3"/>',
  send:'<path d="m3 3 18 9-18 9 4-9-4-9Zm4 9h14"/>',

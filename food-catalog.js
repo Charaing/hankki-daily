@@ -10,3 +10,9 @@ export function groupFoods(foods){
  for(const g of groups.values()){g.variants.sort((a,b)=>preference(a)-preference(b));g.food=g.variants[0];}
  return [...groups.values()];
 }
+export function removeCustomGroup(state,id){
+ const food=state.customFoods.find(f=>f.id===id);if(!food)return{next:state,removed:[],favorites:[]};
+ const removed=state.customFoods.filter(f=>foodGroupKey(f)===foodGroupKey(food)),ids=new Set(removed.map(f=>f.id)),favorites=state.favorites.filter(f=>ids.has(f.id));
+ return{removed,favorites,next:{...state,customFoods:state.customFoods.filter(f=>!ids.has(f.id)),favorites:state.favorites.filter(f=>!ids.has(f.id))}};
+}
+export function restoreCustomGroup(state,change){return{...state,customFoods:[...state.customFoods,...change.removed.filter(f=>!state.customFoods.some(v=>v.id===f.id))],favorites:[...state.favorites,...change.favorites.filter(f=>!state.favorites.some(v=>v.id===f.id))]};}
