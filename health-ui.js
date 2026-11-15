@@ -1,6 +1,6 @@
-import {ACTIVITIES,GOAL_MODES,bodyMetrics,energyPlan,weightSummary,weightSeries,chartBounds,weekActivity,validateProfile,validateWeight,validateDay,upsertWeight} from './health-core.js?v=1.2.2';
-import {dateKey,formatAmount,shiftDate} from './core.js?v=1.2.2';
-import {icon} from './icons.js?v=1.2.2';
+import {ACTIVITIES,GOAL_MODES,bodyMetrics,energyPlan,weightSummary,weightSeries,chartBounds,weekActivity,validateProfile,validateWeight,validateDay,upsertWeight} from './health-core.js?v=1.3.0';
+import {dateKey,formatAmount,shiftDate} from './core.js?v=1.3.0';
+import {icon} from './icons.js?v=1.3.0';
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const fmt=n=>formatAmount(n),integer=n=>Math.round(n).toLocaleString('ko-KR');

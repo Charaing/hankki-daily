@@ -1,4 +1,4 @@
-import {defaultSchool,validateSchool,schoolDayStatus} from './school-core.js?v=1.2.2';import {dateKey} from './core.js?v=1.2.2';import {icon} from './icons.js?v=1.2.2';
+import {defaultSchool,validateSchool,schoolDayStatus} from './school-core.js?v=1.3.0';import {dateKey} from './core.js?v=1.3.0';import {icon} from './icons.js?v=1.3.0';
 const $=s=>document.querySelector(s);const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function createSchoolFeature({getState,getDate,persist,notify}){
  const config=()=>getState().school??defaultSchool();

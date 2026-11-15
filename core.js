@@ -1,5 +1,6 @@
-import {emptyHealth,validateHealth} from './health-core.js?v=1.2.2';
-import {defaultSchool,validateSchool,schoolNutrition} from './school-core.js?v=1.2.2';
+import {emptyHealth,validateHealth} from './health-core.js?v=1.3.0';
+import {defaultSchool,validateSchool,schoolNutrition} from './school-core.js?v=1.3.0';
+import {foodKind} from './food-catalog.js?v=1.3.0';
 export const MEALS = ['breakfast','lunch','dinner','snack'];
 export const DEFAULT_GOALS = {kcal:2000,carbs:250,protein:100,fat:67,water:2000};
 export const normalizeQuery = s => String(s).normalize('NFKC').toLowerCase().replace(/\s+/g,'');
@@ -35,15 +36,16 @@ export function summarize(entries) {
 }
 export function entryNutrition(e){return e.kind==='school-lunch'&&e.auto?schoolNutrition(e.kcal,e.food):calculate(e.food,e.amount,e.mode,e.servingSize);}
 export function foodFromRow(r,categories=[]) {
-  return {id:r[0],name:r[1],kcal:r[2],carbs:r[3],protein:r[4],fat:r[5],unit:r[6],serving:r[7],category:categories[r[8]]||'기타',brand:r[9],origin:r[10],source:'mfds'};
+  return {id:r[0],name:r[1],kcal:r[2],carbs:r[3],protein:r[4],fat:r[5],unit:r[6],serving:r[7],category:categories[r[8]]||'기타',brand:r[9],origin:r[10],source:'mfds',kind:String(r[0]).startsWith('P')?'packaged':'homemade'};
 }
 export function validateFood(f) {
   if(!f||typeof f.id!=='string'||!f.id||f.id.length>180||typeof f.name!=='string'||!f.name.trim()||f.name.length>300||!['g','ml'].includes(f.unit))throw Error('음식 정보를 확인해 주세요.');
   for(const k of ['kcal','carbs','protein','fat'])if(!(k!=='kcal'&&f[k]===null)&&(!Number.isFinite(f[k])||f[k]<0||f[k]>10000))throw Error('음식 영양성분을 확인해 주세요.');
   if(f.serving!=null&&(!Number.isFinite(f.serving)||f.serving<=0||f.serving>100000))throw Error('음식 기준량을 확인해 주세요.');
-  return {id:f.id,name:f.name.trim(),kcal:f.kcal,carbs:f.carbs,protein:f.protein,fat:f.fat,unit:f.unit,serving:f.serving??null,category:String(f.category||'직접 등록').slice(0,100),brand:String(f.brand||'').slice(0,200),origin:String(f.origin||'').slice(0,200),source:['mfds','rda','off','custom'].includes(f.source)?f.source:'custom'};
+  if(f.kind!==undefined&&!['homemade','packaged'].includes(f.kind))throw Error('음식 종류를 확인해 주세요.');
+  return {id:f.id,name:f.name.trim(),kcal:f.kcal,carbs:f.carbs,protein:f.protein,fat:f.fat,unit:f.unit,serving:f.serving??null,category:String(f.category||'직접 등록').slice(0,100),brand:String(f.brand||'').slice(0,200),origin:String(f.origin||'').slice(0,200),source:['mfds','rda','off','custom'].includes(f.source)?f.source:'custom',kind:foodKind(f)};
 }
-export function emptyState(){return{version:1,entries:[],customFoods:[],favorites:[],water:{},goals:{...DEFAULT_GOALS},health:emptyHealth(),school:defaultSchool()};}
+export function emptyState(){return{version:1,entries:[],customFoods:[],favorites:[],water:{},goals:{...DEFAULT_GOALS},health:emptyHealth(),school:defaultSchool(),calorieGoalHistory:{}};}
 export function validateBackup(d) {
   if(!d||d.version!==1||!Array.isArray(d.entries)||!Array.isArray(d.customFoods)||!Array.isArray(d.favorites)||!d.water||typeof d.water!=='object'||Array.isArray(d.water)||!d.goals)throw Error('한끼 백업 파일 형식이 아니에요.');
   if(d.entries.length>50000||d.customFoods.length>10000||d.favorites.length>10000)throw Error('백업 파일이 너무 커요.');
@@ -60,5 +62,6 @@ export function validateBackup(d) {
   const water={};for(const [key,n]of Object.entries(d.water)){if(!validDate(key)||!Number.isFinite(n)||n<0||n>20000)throw Error('물 기록을 확인해 주세요.');water[key]=n;}
   const customFoods=d.customFoods.map(validateFood);
   const favorites=d.favorites.map(validateFood);
-  return {version:1,entries,customFoods,favorites,water,goals,health:validateHealth(d.health),school:validateSchool(d.school)};
+  const calorieGoalHistory={};if(d.calorieGoalHistory!==undefined){if(!d.calorieGoalHistory||typeof d.calorieGoalHistory!=='object'||Array.isArray(d.calorieGoalHistory)||Object.keys(d.calorieGoalHistory).length>50000)throw Error('칼로리 목표 기록을 확인해 주세요.');for(const [date,value]of Object.entries(d.calorieGoalHistory)){if(!validDate(date)||!Number.isFinite(value)||value<=0||value>20000)throw Error('칼로리 목표 기록을 확인해 주세요.');calorieGoalHistory[date]=value;}}
+  return {version:1,entries,customFoods,favorites,water,goals,health:validateHealth(d.health),school:validateSchool(d.school),calorieGoalHistory};
 }
